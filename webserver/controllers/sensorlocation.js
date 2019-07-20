@@ -11,18 +11,14 @@ exports.getLocation = function (req, res, next) {
 }
 
 exports.addLocation=function(req,res,next){
-    
+
     var newLocation = {
         name:req.body.name,
-        location:{
-            x:req.body.xcoordinate,
-            y:req.body.ycoordinate,
-            z:req.body.zcoordinate
-        }
+        
     }
     //var loc=new SensorLocation(newLocation);
-    var loc= new SensorLocation({"name":req.body.name,"description":"location to be updated"});
-    SensorLocation.save(loc,function(err,result){
+    var loc= new SensorLocation({"name":req.body.name});
+    loc.save(loc,function(err,result){
         if(err)
         throw err;
         res.json(result);
