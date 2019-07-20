@@ -5,6 +5,9 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var port = 3001;
 
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+
 var dependencies = require('./dependencies')(app);
 
 // app.use(function (err, req, res, next) {

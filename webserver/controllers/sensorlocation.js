@@ -11,7 +11,7 @@ exports.getLocation = function (req, res, next) {
 }
 
 exports.addLocation=function(req,res,next){
-    console.log("coming here");
+    
     var newLocation = {
         name:req.body.name,
         location:{
