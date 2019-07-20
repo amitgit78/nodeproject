@@ -5,9 +5,6 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var port = 3001;
 
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-app.use(bodyParser.json({ limit: '50mb' }));
-
 var dependencies = require('./dependencies')(app);
 
 // app.use(function (err, req, res, next) {
@@ -46,17 +43,12 @@ mongoose.connection.on('disconnected', function () {
 });
 
 // If the Node process ends, close the Mongoose connection 
-process.on('SIGINT', function () {
-    mongoose.connection.close(function () {
-        console.log('Mongoose default connection disconnected through app termination');
-        process.exit(0);
-    });
-});
-
-
-process.on('uncaughtException', function (err) {
-    writer.write([err]);
-});
+// process.on('SIGINT', function () {
+//     mongoose.connection.close(function () {
+//         console.log('Mongoose default connection disconnected through app termination');
+//         process.exit(0);
+//     });
+// });
 
 app.listen(port, () => {
  console.log("Server listening on port " + port);
