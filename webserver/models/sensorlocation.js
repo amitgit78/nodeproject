@@ -8,11 +8,11 @@ var Schema = mongoose.Schema;
  */
 var SensorLocation = new mongoose.Schema({
     name:String,
-    location:{
-        x:Number,
-        y:Number,
-        z:Number
-    },
+    // location:{
+    //     x:Number,
+    //     y:Number,
+    //     z:Number
+    // },
     description: String,
 	privacy: { type: String, default: "Private" },
 	lastUpdatedOn: { type: Date, default: Date.now },

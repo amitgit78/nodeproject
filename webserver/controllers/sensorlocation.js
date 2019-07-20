@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
 //var Promise = require('bluebird');
-var SensLoc = require('../models/sensorlocation.js');
+var SensorLocation = require('../models/sensorlocation.js');
 var ObjectId = require('mongodb').ObjectID;
 
 exports.getLocation = function (req, res, next) {
     var sensorId = mongoose.Types.ObjectId(req.params.sensorid);
-    desc = desc.replace(/ /g, ".*");
-    SensLoc.find({"_id":sensorid},function (err, data) {
+    SensorLocation.find({},function (err, data) {
         res.json(data);
     })
 }
@@ -21,13 +20,11 @@ exports.addLocation=function(req,res,next){
             z:req.body.zcoordinate
         }
     }
-    newLocation.save();
-    // newLocation.save(function (err, result) {
-    //     if (err) {
-    //         res.json({ status: 'Failed' });
-    //     } else {
-    //         res.json({ status: 'Success' });
-    //     }
-    // })
-        
+    //var loc=new SensorLocation(newLocation);
+    var loc= new SensorLocation({"name":req.body.name,"description":"location to be updated"});
+    SensorLocation.save(loc,function(err,result){
+        if(err)
+        throw err;
+        res.json(result);
+    })
 }

@@ -10,27 +10,18 @@ app.use(bodyParser.json({ limit: '50mb' }));
 
 var dependencies = require('./dependencies')(app);
 
-app.use(function (err, req, res, next) {
-  res.status(500).send('Internal Server Error');
-})
+// app.use(function (err, req, res, next) {
+//   res.status(500).send('Internal Server Error');
+// })
 
-app.get('/',function(req,res,next){
-    MongoClient.connect("mongodb://localhost:27017/sensordb", function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("sensordb");
-        dbo.createCollection("sensorlocation", function(err, res) {
-          if (err) throw err;
-          //db.close();
-        });
-      });
-})
 connectMongo();
 
 function connectMongo() {
     var mongooseOptions = {
-        server: { poolSize: 100 }
+        server: { poolSize: 100 },
+        useNewUrlParser:true
     }
-    mongoose.connect("mongodb://127.0.0.1:27017/sensordb", mongooseOptions, function (err) {
+    mongoose.connect("mongodb://127.0.0.1:27017/sensordb",  mongooseOptions, function (err,db) {       
         if (err) {
             console.log('connection error', err);
             connectMongo();
