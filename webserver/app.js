@@ -15,25 +15,35 @@ app.use(function (err, req, res, next) {
 })
 
 app.get('/',function(req,res,next){
-    MongoClient.connect("mongodb://localhost:27017/sensordb", function(err, db) {
-        if (err) throw err;
-        var dbo = db.db("sensordb");
-        dbo.createCollection("sensorlocation", function(err, res) {
-          if (err) throw err;
-          //db.close();
-        });
-      });
+    // MongoClient.connect("mongodb://localhost:27017/sensordb", function(err, db) {
+    //     // if (err) throw err;
+    //     if (err) {
+    //         console.log(err);
+    //         throw err
+    //     }
+    //     var dbo = db.db("sensordb");
+    //     dbo.createCollection("sensorlocation", function(err, res) {
+    //       if (err) throw err;
+    //       //db.close();
+    //     });
+    //   });
+    // var mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
+    // var db = mongoclient.db("integration_tests");
+    res.status(200).send({message: "Server is Up."})
 })
+
 connectMongo();
 
 function connectMongo() {
     var mongooseOptions = {
-        server: { poolSize: 100 }
+        useNewUrlParser: true,
+        poolSize: 100,
     }
     mongoose.connect("mongodb://127.0.0.1:27017/sensordb", mongooseOptions, function (err) {
         if (err) {
             console.log('connection error', err);
-            connectMongo();
+            process.Exit(1)
+            // connectMongo();
         } else {
             console.log('connection successful');
         }
